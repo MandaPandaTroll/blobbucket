@@ -37,9 +37,9 @@ public class BlobControls : MonoBehaviour
         //Initial selection parameters
         moveForce = 100f;
         turnTorque = 90f;
-        lookDistance = 5f;
+        lookDistance = 10f;
         
-        energyToReproduce = 5000f;
+        energyToReproduce = 6000f;
 
         rb = GetComponent<Rigidbody2D>();
         energy = 4500f;
@@ -61,7 +61,10 @@ public class BlobControls : MonoBehaviour
     void Update()
     {
         
+            if(energy >= energyToReproduce){
+                Rest();
 
+            }
         if(blobs.Contains(this) == false)
         {
 
@@ -84,14 +87,11 @@ public class BlobControls : MonoBehaviour
                 
             }
             
-            if(energy >= energyToReproduce){
-                Rest();
 
-            }
 
 
             if(nom == true){
-                energy = energy + 250f;
+                energy = energy + 600f;
                 nom = false; 
                 
                 Resizer();
@@ -179,7 +179,7 @@ public class BlobControls : MonoBehaviour
             {     
                 goForwardCount = goForwardCount + 1;
                     rb.AddForce(transform.up * moveForce*rb.mass);
-                    energy = energy - (0.5f*rb.mass*moveForce/50f);
+                    energy = energy - (0.4f*rb.mass*moveForce/50f);
                     int randTurner = Random.Range(0,128);
                     if (randTurner == 64)
                     {

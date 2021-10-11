@@ -13,15 +13,15 @@ public class BlibControls : MonoBehaviour
     Collider2D thisBlib;
    
     bool bump;
-   
+    static GameObject[] blibs;
     int energy;
     float restTime;
    float lookTimer;
     int layer_mask; 
-    bool timeToDie;
     int blib_mask;
- static List <BlibControls> blibs;
-static List <GameObject> blibList;
+    int rDice;
+   
+    int diceSize;
     // Selection parameters
    float moveForce;
    float turnTorque;
@@ -34,7 +34,7 @@ static List <GameObject> blibList;
         moveForce = 100f;
         turnTorque = 90f;
         lookDistance = 5f;
-
+        diceSize = 512;
         rb = GetComponent<Rigidbody2D>();
         box = GameObject.Find("box");
         boxCol = box.GetComponent<EdgeCollider2D>();
@@ -51,17 +51,20 @@ static List <GameObject> blibList;
     // Update is called once per frame
     void Update()
     {
-
+                    blibs =  GameObject.FindGameObjectsWithTag("Prey");
+                    diceSize =100 + blibs.Length*blibs.Length/16;
      
-       
-
+       rDice=(Random.Range(0,diceSize));
+        if(rDice == 69){
+            Reproduce();
+        }
 
 
         if (bump == false && energy > 0)
         {
         GoForward();
         }
-        Look();
+
 
             
 
@@ -139,35 +142,39 @@ static List <GameObject> blibList;
 
             {     
                     rb.AddForce(transform.up * moveForce);
-                    energy = energy -1;
+                    
                     int randTurner = Random.Range(0,128);
                     if (randTurner == 64)
                     {
                         rb.AddTorque(turnTorque * Random.Range(-1,2f));
-                        Look();
+                        
                     }
-                    energy = energy -1;
+                    
                     
             }
 
-            void Rest()
+            void Reproduce()
             {   
                     if (bump== true)
                     {
                         return;
                     }
+                    
 
-                        energy = 1500;
+
+                        
                         if(bump == false ){
                         
                         GameObject clone;
+                        
+                        
                     //Mutation
                     moveForce = moveForce + Random.Range(-0.1f,0.2f);
                     turnTorque = turnTorque + Random.Range(-0.1f,0.2f);
                     lookDistance = lookDistance + Random.Range(-0.1f,0.2f);
 
                     clone = Instantiate(gameObject);
-                   
+                    
 
                     }
                         
@@ -177,25 +184,7 @@ static List <GameObject> blibList;
             
 
 
-         void Look()
-        {
 
-
-
-                    
-                
-
-                
-                    if (energy <= 0){
-                        Rest();
-                    }
-                
-
-                 
-
- 
-                                
-         }
 
 
 }

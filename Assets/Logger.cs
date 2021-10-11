@@ -33,7 +33,7 @@ private List<string[]> rowData = new List<string[]>();
 
         time += Time.deltaTime;
         
-            if (time >= 5.0f){
+            if (time >= 1.0f){
                 blobs = GameObject.FindGameObjectsWithTag("Predator");
                 blibs  = GameObject.FindGameObjectsWithTag("Prey");
                 
