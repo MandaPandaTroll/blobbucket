@@ -9,6 +9,8 @@ public class BlibSpawner : MonoBehaviour
   public int initBlib;
   private bool autoRespawn;
   public int extraBlib;
+
+  public int minBlib;
   public GameObject blib;
   GameObject[] blibs;
 
@@ -39,16 +41,18 @@ public class BlibSpawner : MonoBehaviour
 
 void Update()
 {
-  blibs = GameObject.FindGameObjectsWithTag("Predator");
+  
+  blibs = GameObject.FindGameObjectsWithTag("Prey");
   blibN = blibs.Length;
   if (Input.GetKeyDown("i") == true  ){ extraSpawn();}
-        if (autoRespawn == true && blibN <= 0){extraSpawn();}
+        if (autoRespawn == true && blibN <= minBlib){extraSpawn();}
         
     }
   
 
   void extraSpawn()
   {
+    
         for(int i = 0; i < extraBlib; i++){
         float x = (float)Random.Range(-boxSize/3,boxSize/3);
         float y = (float)Random.Range(-boxSize/3,boxSize/3);

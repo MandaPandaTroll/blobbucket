@@ -134,16 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb6b980343184eb3b8dc89fcd6f7389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speciationDistance: 10
+  energyToReproduce: 1024
   densityCo: 0.0001
   rDice: 0
   age: 0
   energy: 0
   statAge: 0
-  moveAllele1: 120
-  moveAllele2: 120
-  turnTorque: 90
-  turnTorqueAllele1: 90
-  turnTorqueAllele2: 90
+  moveAllele1: 150
+  moveAllele2: 150
+  turnTorque: 90.1477
+  turnTorqueAllele1: 90.1477
+  turnTorqueAllele2: 90.1477
   intron1: 100
   intron2: 100
   intron3: 100
@@ -157,7 +159,8 @@ MonoBehaviour:
   greenAllele2: 0
   blueAllele1: 0
   blueAllele2: 0
-  initDiversity: 5
-  lifeLength: 60
-  turnDice: 64
+  initDiversity: 1
+  lifeLength: 91.96977
+  turnDice: 63.34411
+  lookDistance: 20
   generation: 0

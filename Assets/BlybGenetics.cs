@@ -44,13 +44,14 @@ private List<string[]> rowData = new List<string[]>();
     public List <float> blueAllele2;
     public List <float> LifeSpan;
     public List <float> lookDistance;
-    public List <float> turnTorque;
-    public List <int> turnDice;
+    public List <float> turnTorqueAllele1;
+    public List <float> turnTorqueAllele2;
+    public List <float> turnDice;
     public List <float> energyToReproduce;
+    public List <float> conjAge;
  
     
     
- 
     BlybControls sampledBlyb;
 
     // Start is called before the first frame update
@@ -72,7 +73,7 @@ private List<string[]> rowData = new List<string[]>();
             if (time >= sampleRate){
                
                 Blybs  = GameObject.FindGameObjectsWithTag("Predator2");
-                sampleSize = Blybs.Length;
+
 
 
                 if(Blybs.Length >= 1){
@@ -102,10 +103,11 @@ private List<string[]> rowData = new List<string[]>();
                     LifeSpan.Add(sampledBlyb.lifeLength);
 
                     lookDistance.Add(sampledBlyb.lookDistance);
-                    turnTorque.Add(sampledBlyb.turnTorque);
-                    turnDice.Add(sampledBlyb.turnDice);
+                    turnTorqueAllele1.Add(sampledBlyb.turnTorqueAllele1);
+                    turnTorqueAllele2.Add(sampledBlyb.turnTorqueAllele2);                    turnDice.Add(sampledBlyb.turnDice);
                     energyToReproduce.Add(sampledBlyb.energyToReproduce);
                     generation.Add(sampledBlyb.generation);
+                    conjAge.Add(sampledBlyb.conjAge);
                 }           
                 
             
@@ -133,7 +135,7 @@ private List<string[]> rowData = new List<string[]>();
             itCount += 1;
             string[] rowDataTemp;
         if (itCount == 1){
-            rowDataTemp = new string[18];
+            rowDataTemp = new string[20];
             rowDataTemp[0] ="Generation";
             rowDataTemp[1] = "intron1";
             rowDataTemp[2] = "intron2";
@@ -148,9 +150,13 @@ private List<string[]> rowData = new List<string[]>();
             rowDataTemp[11] = "blueAllele1";
             rowDataTemp[12] = "blueAllele2";
             rowDataTemp[13] = "MaxlifeLength";
-            rowDataTemp[15] = "turnTorque";
-            rowDataTemp[16] = "turnDice";
-            rowDataTemp[17] = "energyToReproduce";
+            rowDataTemp[14] = "lookDistance";
+            rowDataTemp[15] = "turnTorqueAllele1";
+            rowDataTemp[16] = "turnTorqueAllele2";
+            rowDataTemp[17] = "turnDice";
+            rowDataTemp[18] = "energyToReproduce";
+            rowDataTemp[19] = "conjAge";
+
             rowData.Add(rowDataTemp);
         }
         // Creating First row of titles manually..
@@ -167,7 +173,7 @@ private List<string[]> rowData = new List<string[]>();
 
         // You can add up the values in as many cells as you want.
         for(int i = 0; i < sampleSize; i++){
-            rowDataTemp = new string[18];
+            rowDataTemp = new string[20];
             rowDataTemp[0] = generation[i].ToString();
             rowDataTemp[1] = intron1[i].ToString();
             rowDataTemp[2] = intron2[i].ToString();
@@ -182,10 +188,12 @@ private List<string[]> rowData = new List<string[]>();
             rowDataTemp[11] = blueAllele1[i].ToString();
             rowDataTemp[12] = blueAllele2[i].ToString();
             rowDataTemp[13] = LifeSpan[i].ToString();
-            rowDataTemp[15] = turnTorque[i].ToString();
-            rowDataTemp[16] = turnDice[i].ToString();
-            rowDataTemp[17] = energyToReproduce[i].ToString();
-
+            rowDataTemp[14] = lookDistance[i].ToString();
+            rowDataTemp[15] = turnTorqueAllele1[i].ToString();
+            rowDataTemp[16] = turnTorqueAllele2[i].ToString();
+            rowDataTemp[17] = turnDice[i].ToString();
+            rowDataTemp[18] = energyToReproduce[i].ToString();
+            rowDataTemp[19] = conjAge[i].ToString();
             
 
             
@@ -231,10 +239,13 @@ private List<string[]> rowData = new List<string[]>();
         blueAllele2.Clear();
         LifeSpan.Clear();
         lookDistance.Clear();
-        turnTorque.Clear();
+        turnTorqueAllele1.Clear();
+        turnTorqueAllele2.Clear();
         turnDice.Clear();
         energyToReproduce.Clear();
         generation.Clear();
+        conjAge.Clear();
+
         Array.Clear(Blybs,0,Blybs.Length);
         time = 0f;
 

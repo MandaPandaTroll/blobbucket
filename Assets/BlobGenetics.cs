@@ -43,9 +43,12 @@ private List<string[]> rowData = new List<string[]>();
     public List <float> blueAllele2;
     public List <float> LifeSpan;
      public List <float> lookDistance;
-    public List <float> turnTorque;
-        public List <int> turnDice;
+    public List <float> turnTorqueAllele1;
+    public List <float> turnTorqueAllele2;
+    public List <float> turnDice;
     public List <float> energyToReproduce;
+    public List <float> conjAge;
+
     
  
     BlobControls sampledBlob;
@@ -69,7 +72,7 @@ private List<string[]> rowData = new List<string[]>();
             if (time >= sampleRate){
                
                 blobs  = GameObject.FindGameObjectsWithTag("Predator");
-                sampleSize = blobs.Length;
+
 
 
                 if(blobs.Length >= 1){
@@ -99,10 +102,12 @@ private List<string[]> rowData = new List<string[]>();
                     LifeSpan.Add(sampledBlob.lifeLength);
                     
                     lookDistance.Add(sampledBlob.lookDistance);
-                    turnTorque.Add(sampledBlob.turnTorque);
+                    turnTorqueAllele1.Add(sampledBlob.turnTorqueAllele1);
+                    turnTorqueAllele2.Add(sampledBlob.turnTorqueAllele2);
                     turnDice.Add(sampledBlob.turnDice);
                     energyToReproduce.Add(sampledBlob.energyToReproduce);
                     generation.Add(sampledBlob.generation);
+                    conjAge.Add(sampledBlob.conjAge);
                 }           
                 
             
@@ -130,7 +135,7 @@ private List<string[]> rowData = new List<string[]>();
             itCount += 1;
             string[] rowDataTemp;
         if (itCount == 1){
-            rowDataTemp = new string[18];
+            rowDataTemp = new string[20];
             rowDataTemp[0] ="Generation";
             rowDataTemp[1] = "intron1";
             rowDataTemp[2] = "intron2";
@@ -146,9 +151,11 @@ private List<string[]> rowData = new List<string[]>();
             rowDataTemp[12] = "blueAllele2";
             rowDataTemp[13] = "MaxlifeLength";
             rowDataTemp[14] = "lookDistance";
-            rowDataTemp[15] = "turnTorque";
-            rowDataTemp[16] = "turnDice";
-            rowDataTemp[17] = "energyToReproduce";
+            rowDataTemp[15] = "turnTorqueAllele1";
+            rowDataTemp[16] = "turnTorqueAllele2";
+            rowDataTemp[17] = "turnDice";
+            rowDataTemp[18] = "energyToReproduce";
+            rowDataTemp[19] = "conjAge";
 
             rowData.Add(rowDataTemp);
         }
@@ -166,7 +173,7 @@ private List<string[]> rowData = new List<string[]>();
 
         // You can add up the values in as many cells as you want.
         for(int i = 0; i < sampleSize; i++){
-            rowDataTemp = new string[18];
+            rowDataTemp = new string[20];
             rowDataTemp[0] = generation[i].ToString();
             rowDataTemp[1] = intron1[i].ToString();
             rowDataTemp[2] = intron2[i].ToString();
@@ -182,10 +189,11 @@ private List<string[]> rowData = new List<string[]>();
             rowDataTemp[12] = blueAllele2[i].ToString();
             rowDataTemp[13] = LifeSpan[i].ToString();
             rowDataTemp[14] = lookDistance[i].ToString();
-            rowDataTemp[15] = turnTorque[i].ToString();
-            rowDataTemp[16] = turnDice[i].ToString();
-            rowDataTemp[17] = energyToReproduce[i].ToString();
-
+            rowDataTemp[15] = turnTorqueAllele1[i].ToString();
+            rowDataTemp[16] = turnTorqueAllele2[i].ToString();
+            rowDataTemp[17] = turnDice[i].ToString();
+            rowDataTemp[18] = energyToReproduce[i].ToString();
+            rowDataTemp[19] = conjAge[i].ToString();
             
 
             
@@ -231,10 +239,12 @@ private List<string[]> rowData = new List<string[]>();
         blueAllele2.Clear();
         LifeSpan.Clear();
         lookDistance.Clear();
-        turnTorque.Clear();
+        turnTorqueAllele1.Clear();
+        turnTorqueAllele2.Clear();
         turnDice.Clear();
         energyToReproduce.Clear();
         generation.Clear();
+        conjAge.Clear();
 
         Array.Clear(blobs,0,blobs.Length);
         time = 0f;

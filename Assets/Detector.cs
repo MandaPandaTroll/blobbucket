@@ -23,7 +23,13 @@ public class Detector : MonoBehaviour
    Collider2D[] detect3;
 
    Collider2D[] detect4;
+
+   public int rDiceSizeA;
+   public int rDiceSizeB;
+   public int rDiceSizeC;
+   public int rDiceSizeD;
    Transform boxTransform;
+   float boxLength;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +40,7 @@ public class Detector : MonoBehaviour
         boxB = new Vector2((boxTransform.position.x + boxTransform.lossyScale.x/2f),(boxTransform.position.y + boxTransform.lossyScale.y/2f));
         boxC = new Vector2((boxTransform.position.x - boxTransform.lossyScale.x/2f),(boxTransform.position.y - boxTransform.lossyScale.y/2f));
         boxD = new Vector2((boxTransform.position.x + boxTransform.lossyScale.x/2f),(boxTransform.position.y - boxTransform.lossyScale.y/2f));
-
+        boxLength = boxTransform.lossyScale.x;
 
 
         Debug.Log(boxA);
@@ -48,21 +54,33 @@ public class Detector : MonoBehaviour
     {   time += Time.deltaTime;
        
         if(time >= 1){
-        Collider2D[] detect1 = Physics2D.OverlapAreaAll(p, boxA, blib_mask);
+        boxLength = boxTransform.lossyScale.x;
 
+        Collider2D[] detect1 = Physics2D.OverlapAreaAll(p, boxA, blib_mask);
         in1 = detect1.Length;
+        rDiceSizeA = (int)Mathf.Pow(2.0f, (float)0.5f*in1/Mathf.Sqrt(boxLength));
 
         Collider2D[] detect2 = Physics2D.OverlapAreaAll(p, boxB, blib_mask);
         in2 = detect2.Length;
+        rDiceSizeB = (int)Mathf.Pow(2.0f, (float)0.5f*in2/Mathf.Sqrt(boxLength));
 
         Collider2D[] detect3 = Physics2D.OverlapAreaAll(p, boxC, blib_mask);
         in3 = detect3.Length;
+        rDiceSizeC = (int)Mathf.Pow(2.0f, (float)0.5f*in3/Mathf.Sqrt(boxLength));
 
         Collider2D[] detect4 = Physics2D.OverlapAreaAll(p, boxD, blib_mask);
         in4 = detect4.Length;
-        Debug.Log(in1 + "," + in2 + "," + in3 + "," + in4);
+        rDiceSizeD = (int)Mathf.Pow(2.0f, (float)0.5f*in4/Mathf.Sqrt(boxLength));
+
+                boxA = new Vector2((boxTransform.position.x - boxTransform.lossyScale.x/2f),(boxTransform.position.y + boxTransform.lossyScale.y/2f));
+        boxB = new Vector2((boxTransform.position.x + boxTransform.lossyScale.x/2f),(boxTransform.position.y + boxTransform.lossyScale.y/2f));
+        boxC = new Vector2((boxTransform.position.x - boxTransform.lossyScale.x/2f),(boxTransform.position.y - boxTransform.lossyScale.y/2f));
+        boxD = new Vector2((boxTransform.position.x + boxTransform.lossyScale.x/2f),(boxTransform.position.y - boxTransform.lossyScale.y/2f));
+        
         time = 0f;
         }
+
+
         
 
     }

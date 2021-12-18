@@ -5,14 +5,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.MLAgents;
 
 
-public class BlibControls : MonoBehaviour
+public class BrainBlibControls : MonoBehaviour 
 {
 
-
-
+public bool hasReproduced;
 bool touch1;
 bool touch2;
 bool touch3;
@@ -42,7 +40,7 @@ private Color geneticColor;
 public float densityCo;
     Rigidbody2D rb;
     GameObject box;
-    private  bool bump;
+    public  bool bump;
     static GameObject[] blibs;
     private  int layer_mask; 
     private   int blib_mask;
@@ -59,7 +57,7 @@ public float densityCo;
    public float moveAllele1;
    public float moveAllele2;
 
-   float moveForce;
+   public float moveForce;
    public float turnTorque;
    public float turnTorqueAllele1;
    public float turnTorqueAllele2;
@@ -73,10 +71,9 @@ public float densityCo;
     public float initDiversity;
   public float lifeLength;
  int deathDice;
-  public float turnDice;
 
   public float lookDistance;
-
+    public float geneticDistance;
 
   Transform boxTran;
   float boxLength;
@@ -86,16 +83,12 @@ public float densityCo;
   
     
 float energyTick;
-float lNum;
-float lForce;
 
-
-
-    // Start is called before the first frame update
+    public Transform lightSource;
     void Start()
     {
 
-
+       hasReproduced = false;
 
        Alpha = GameObject.Find("Alpha");
         detector = Alpha.GetComponent<Detector>();
@@ -135,7 +128,7 @@ float lForce;
         GammaPop = detector.in3;
         DeltaPop = detector.in4;
 
-
+        
         
     }
 
@@ -143,17 +136,14 @@ float lForce;
     // Update is called once per frame
     void LateUpdate()
     {   
-
-
-
         Vector2 brownian = new Vector2 (Random.Range(-1.0f,1.0f),Random.Range(-1.0f,1.0f));
         rb.AddForce(brownian);
          energyTick += Time.deltaTime;
         if(energyTick > 1.0f)
         {
-            energy += 96f*greenGene;
+            float distLightScaled = Vector2.Distance(this.transform.position, lightSource.position)/Mathf.Sqrt(2.0f*(Mathf.Pow(2.0f*boxLength,2.0f))); 
+            energy += 100f*greenGene;
             energyTick = 0.0f;
-            
         }
         if(Time.time < 0.1f && initDiversity != 0.0f)
         {
@@ -168,10 +158,14 @@ float lForce;
         if (pos.x < 0f && pos.y < 0f){touch3= true;}
         if (pos.x > 0f && pos.y < 0f){touch4= true;}
 
-        int aCo = detector.rDiceSizeA;
-        int bCo = detector.rDiceSizeB;
-        int gCo = detector.rDiceSizeC;
-        int dCo = detector.rDiceSizeD;
+        AlphaPop = detector.in1;
+        BetaPop = detector.in2;
+        GammaPop = detector.in3;
+        DeltaPop = detector.in4;
+        int aCo = (int)Mathf.Pow(2,((AlphaPop*32f)/boxLength));
+        int bCo = (int)Mathf.Pow(2,((AlphaPop*32f)/boxLength));
+        int gCo = (int)Mathf.Pow(2,((AlphaPop*32f)/boxLength));
+        int dCo = (int)Mathf.Pow(2,((AlphaPop*32f)/boxLength));
        
 
         
@@ -188,25 +182,25 @@ float lForce;
         if(touch1 == true)
                         {
                           
-                          rDice = Random.Range(1, (1 + aCo));
+                          rDice = Random.Range(1, (2 + aCo));
 
                         }                                                          
        if(touch2 == true)
                         {
                           
-                          rDice = Random.Range(1, (1 + bCo));
+                          rDice = Random.Range(1, (2 + bCo));
                         }
 
        if(touch3 == true)
                         {
                           
-                            rDice =Random.Range(1, (1 + gCo));
+                            rDice =Random.Range(1, (2 + gCo));
                         }
 
        if(touch4 == true)
                         {
                           
-                         rDice =Random.Range(1, (1 + dCo));
+                         rDice =Random.Range(1, (2 + dCo));
                         }
 
 
@@ -224,16 +218,13 @@ float lForce;
         }
 
 
-        if (bump == false )
-        {
-        GoForward();
-        }
+
 
 
             if(deathDice == 1 && age > (lifeLength/2) || age >= lifeLength)
             {   
-            
-                Destroy(gameObject, 0.1f);
+                this.GetComponent<BrainBlib>().enabled = false;
+                Destroy(gameObject, 0.2f);
             
             }
 
@@ -253,7 +244,7 @@ float lForce;
 
                 if(booper.tag == ("Predator") || booper.tag == "Predator2")
                 {   
-                    Destroy(gameObject, 0.1f);
+                    Destroy(gameObject, 0.2f);
                     
         
                 }
@@ -266,7 +257,7 @@ float lForce;
                     float distIntron2 = Mathf.Abs(((float)intron2 - (float)mate.intron2));
                     float distIntron3 = Mathf.Abs(((float)intron3 - (float)mate.intron3));
                     float distIntron4 = Mathf.Abs(((float)intron4 - (float)mate.intron4));
-                    float geneticDistance = (distIntron1 + distIntron2 + distIntron3 + distIntron4)/4f;
+                    geneticDistance = (distIntron1 + distIntron2 + distIntron3 + distIntron4)/4f;
                     if(geneticDistance > speciationDistance){Debug.Log("blibGenDist = " + geneticDistance);}
                     if(geneticDistance < speciationDistance)
                     {
@@ -275,9 +266,11 @@ float lForce;
 
                     turnTorqueAllele1 = (turnTorqueAllele1 + mate.turnTorqueAllele1)/2;
                     turnTorqueAllele2 = (turnTorqueAllele2 + mate.turnTorqueAllele2)/2;
-                    turnDice = (turnDice + mate.turnDice)/2;
-                    lifeLength = (lifeLength + mate.lifeLength)/2.0f;
+                    
                     energyToReproduce = (energyToReproduce + mate.energyToReproduce)/2.0f;
+
+                    lookDistance = (lookDistance + mate.lookDistance)/2.0f;
+
                     intron1 = (intron1 + mate.intron1)/2;
                     intron2 = (intron2 + mate.intron2)/2;
                     intron3 = (intron3 + mate.intron3)/2;
@@ -351,57 +344,18 @@ float lForce;
                 
             }
 
-            void OnCollisionStay2D(Collision2D col)
-            {
-
-
-                
-                ContactPoint2D contact = col.GetContact(0);
-                float thisDir = rb.rotation*Mathf.Deg2Rad;
-                Vector2 norm = contact.normal;
-                
-               
-                rb.AddForce(contact.normal * moveForce*5f);
-                
-                rb.AddTorque((norm.y + norm.x )*Mathf.Rad2Deg);
-                
-
-                GoForward();
-                
-
-
-
-            }
-
-            void OnCollisionExit2D(Collision2D col)
-            {
-                
-                bump = false;
-                GoForward();
-            }
 
 
 
 
-            void GoForward()
 
-            {     
-                    rb.AddForce(transform.up * moveForce*rb.mass);
-                    energy -= moveForce/240f;
-                    int randTurner = Random.Range(0,(int)turnDice);
 
-                    if (randTurner == 0)
-                    {
-                        rb.AddTorque(turnTorque * Random.Range(-1f,1f));
-                        
-                    }
-                    
-                    Look(); 
-            }
+
+
 
             void Reproduce()
             {   
-                
+                hasReproduced = true;
                         
                          List <int> randNosA = new List<int>();
                          
@@ -425,12 +379,11 @@ float lForce;
                     turnTorqueAllele1 += (float)randNosA[2]*rndA.Next(2);
                     turnTorqueAllele2 += (float)randNosA[3]*rndA.Next(2);
                     turnTorque = (turnTorqueAllele1 + turnTorqueAllele2)/2.0f;
-                    turnDice += (float)randNosA[4]*rndA.Next(2);
-                    intron1 += randNosA[5]*rndA.Next(2);
-                    intron2 += randNosA[6]*rndA.Next(2);
-                    intron3 += randNosA[7]*rndA.Next(2);
-                    intron4 += randNosA[8]*rndA.Next(2);
-                    lifeLength += (float)randNosA[9]*rndA.Next(2);
+                    intron1 += randNosA[4]*rndA.Next(2);
+                    intron2 += randNosA[5]*rndA.Next(2);
+                    intron3 += randNosA[6]*rndA.Next(2);
+                    intron4 += randNosA[7]*rndA.Next(2);
+                    lifeLength += (float)randNosA[8]*rndA.Next(2);
 
                     lookDistance += (float)randNosA[9]*rndA.Next(2);
                     
@@ -490,21 +443,7 @@ float lForce;
                     
 
                                         
-                        if (generation == 50 ||  generation == 100|| generation == 200 || generation == 300 || generation == 400 || generation == 500 || generation == 600 || generation == 800 || generation == 1000)
-                        {
-                        Debug.Log( "blibgen " 
-                                    +generation +","+
-                                     moveForce +","+
-                                    turnTorque  +","+
-                                    turnDice    +","+
-                                    lifeLength  +","+
-                                    intron1     +","+
-                                    intron2     +","+
-                                    intron3     +","+
-                                    intron4     
 
-                                    );
-                        }
                     
 
                 
@@ -536,8 +475,9 @@ float lForce;
                     turnTorqueAllele1 += (float)(rndA.Next(-1,2)*initDiversity);
                     turnTorqueAllele2 += (float)(rndA.Next(-1,2)*initDiversity);
                     turnTorque = (turnTorqueAllele1 + turnTorqueAllele2)/2.0f;
+                    
+                    lookDistance += (float)(rndA.Next(-1,2)*initDiversity);
 
-                    turnDice += (float)(rndA.Next(-1,2)*initDiversity);
                     intron1 += (float)(rndA.Next(-1,2)*initDiversity);
                     intron2 += (float)(rndA.Next(-1,2)*initDiversity);
                     intron3 += (float)(rndA.Next(-1,2)*initDiversity);
@@ -574,41 +514,5 @@ float lForce;
 
         } 
 
-      void Look()
-        {
-                            //flee
-            RaycastHit2D hitF = Physics2D.Raycast(transform.position,transform.up,lookDistance, layer_mask);
-            RaycastHit2D hitL = Physics2D.Raycast(transform.position,-transform.right,lookDistance, layer_mask);
-            RaycastHit2D hitR = Physics2D.Raycast(transform.position,transform.right,lookDistance, layer_mask);
-            if (hitF.collider != null)
-                 { Vector2 fleeDir = new Vector2((hitF.point.x - transform.position.x),(hitF.point.y - transform.position.y) );
-                                          
-                                           fleeDir.Normalize();
-                    float rot_z = Mathf.Atan2(fleeDir.y, fleeDir.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
-                    rb.AddForce(transform.up*moveForce*rb.mass*2f);
-                    
-                 
-                 }
-
-                if (hitL.collider != null)
-                {Vector2 fleeDir = new Vector2((hitL.point.x - transform.position.x),(hitL.point.y - transform.position.y) ); 
-                    
-                                       fleeDir.Normalize();
-                    float rot_z = Mathf.Atan2(fleeDir.y, fleeDir.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
-                    rb.AddForce(transform.up*moveForce*rb.mass*2f);
-                    
-                }
-
-                if (hitR.collider != null)
-                {Vector2 fleeDir = new Vector2((hitR.point.x - transform.position.x),(hitR.point.y - transform.position.y) );
-                
-                                   fleeDir.Normalize();
-                    float rot_z = Mathf.Atan2(fleeDir.y, fleeDir.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
-                    rb.AddForce(transform.up*moveForce*rb.mass*2f);
-                    
-                }
-        }      
+      
 }

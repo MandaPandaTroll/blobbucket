@@ -134,17 +134,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ae257d378cf4ea28ab119788ba0782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eCostCo: 2000
+  speciationDistance: 10
   pEnergy: 0
+  conjAge: 75
   age: 0
   statAge: 0
-  moveAllele1: 150
-  moveAllele2: 150
-  turnTorque: 90
-  turnDice: 128
-  lookDistance: 30
-  energyToReproduce: 8000
-  ageToReproduce: 0
-  lifeLength: 150
+  moveAllele1: 178.1948
+  moveAllele2: 206.1074
+  turnTorque: 101.1475
+  turnTorqueAllele1: 101.1475
+  turnTorqueAllele2: 101.1475
+  turnDice: 141.7344
+  lookDistance: 44.02188
+  energyToReproduce: 14986.63
+  lifeLength: 205.0777
   intron1: 100
   intron2: 100
   intron3: 100
@@ -161,3 +165,4 @@ MonoBehaviour:
   initDiversity: 3
   rDice: 0
   generation: 0
+  deadLayer: 9

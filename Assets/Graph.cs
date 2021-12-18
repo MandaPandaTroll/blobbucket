@@ -109,9 +109,9 @@
                float blibCount = (float)blibList.Count;
                 float totalPop = blibCount + blobCount + blybCount + blubCount;
                  
-                float scaledTotalPop = GraphScaler*(totalPop/1500f)*windowRect.height;
+                float scaledTotalPop = GraphScaler*(totalPop/2500f)*windowRect.height;
                 //a + ( x - min(x) )*(b-a) / ( max(x)-min(x) ) 
-                float scaledBlib = GraphScaler*(blibCount/1500f)*windowRect.height;
+                float scaledBlib = GraphScaler*(blibCount/2500f)*windowRect.height;
                 float scaledBlob = GraphScaler*(blobCount/400f)*windowRect.height;
                 float scaledBlyb = GraphScaler*(blybCount/400f)*windowRect.height;
                 float scaledBlub = GraphScaler*(blubCount/100f)*windowRect.height;

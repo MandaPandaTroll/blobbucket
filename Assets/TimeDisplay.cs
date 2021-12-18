@@ -14,8 +14,8 @@ public class TimeDisplay : MonoBehaviour
     GameObject StatisticsHandler;
     Logger Logger;
 
-    int blibCount;
-    int blobCount;
+    int blibs;
+    int blobs;
     int blybs;
     float ratio;
     float time;
@@ -50,15 +50,15 @@ public class TimeDisplay : MonoBehaviour
         float timeToDisplay = Mathf.Round(Time.time);
         time += Time.deltaTime;
         if(time >= 1.0f){
-        blibCount = Graph.blibList.Count;
-        blobCount = Graph.blobList.Count;
+        blibs = GameObject.FindGameObjectsWithTag("Prey").Length;
+        blobs = GameObject.FindGameObjectsWithTag("Predator").Length;
         blybs = GameObject.FindGameObjectsWithTag("Predator2").Length;
         blubs = GameObject.FindGameObjectsWithTag("ApexPred").Length;
         
 
                     string timeString = timeToDisplay.ToString();
-                    string blibString = blibCount.ToString();
-                    string blobString = blobCount.ToString();
+                    string blibString = blibs.ToString();
+                    string blobString = blobs.ToString();
                     string blybString = blybs.ToString();
                     string blubString = blubs.ToString();
                     string camSpeedString = camSpeed.ToString();

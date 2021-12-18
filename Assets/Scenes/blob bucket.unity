@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803d981c82ab6433c86ba3b9c030521a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camSpeed: 50
+  camSpeed: 1e-45
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 606941772}
   - component: {fileID: 606941771}
   - component: {fileID: 606941770}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Alpha
   m_TagString: Alpha
   m_Icon: {fileID: 0}
@@ -327,6 +327,10 @@ MonoBehaviour:
   in2: 0
   in3: 0
   in4: 0
+  rDiceSizeA: 0
+  rDiceSizeB: 0
+  rDiceSizeC: 0
+  rDiceSizeD: 0
 --- !u!61 &606941771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -381,7 +385,7 @@ GameObject:
   - component: {fileID: 706356613}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -492,7 +496,7 @@ Transform:
   m_GameObject: {fileID: 706356612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2000, y: 2000, z: 1200}
+  m_LocalScale: {x: 3000, y: 3000, z: 1}
   m_Children:
   - {fileID: 71535552}
   - {fileID: 519420032}
@@ -513,7 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 777229847}
   - component: {fileID: 777229846}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +531,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777229845}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa5722b5148164eb29f7707b5e0b2b06, type: 3}
   m_Name: 
@@ -556,7 +560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 930136647}
   - component: {fileID: 930136644}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PopGraph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +707,8 @@ GameObject:
   - component: {fileID: 1883381887}
   - component: {fileID: 1883381885}
   - component: {fileID: 1883381886}
-  m_Layer: 0
+  - component: {fileID: 1883381888}
+  m_Layer: 2
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -724,6 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initBlib: 1000
   extraBlib: 1
+  minBlib: 1000
   blib: {fileID: 3468846596000450122, guid: 6d4cc741cc2fc4e00ad7702559757827, type: 3}
 --- !u!4 &1883381884
 Transform:
@@ -751,9 +757,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6bd4133b54884e9b85ea955802985c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initBlob: 20
+  initBlob: 10
   extraBlob: 1
-  blob: {fileID: 2094946642138999849, guid: da52654b64d3340398b53e6488f80986, type: 3}
+  minBlob: 10
+  brainblob: {fileID: 1711403674044451826, guid: 62f3ae1229ce147e085f49742d4f03cd, type: 3}
 --- !u!114 &1883381886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b243e301ee9401a834a5dedfa9deae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initBlub: 1
+  initBlub: 0
   extraBlub: 1
   blub: {fileID: 2144891157407202009, guid: dcd26e69e6cba4660b86f07ec59152a8, type: 3}
 --- !u!114 &1883381887
@@ -781,9 +788,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09c4ea668b25499390c530b02010ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initBlyb: 20
+  initBlyb: 0
   extraBlyb: 1
   blyb: {fileID: 6630983089623210547, guid: 4e262b2d838c94b658490674b77f932d, type: 3}
+--- !u!114 &1883381888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883381882}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb25c2faac4a419cb40a175343a6c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initBlob: 500
+  extraBlob: 1
+  trainblob: {fileID: 7737579970609765347, guid: 3b7c20f1c4e5243ad81c74370d9063be, type: 3}
 --- !u!1 &2050368374
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,14 +915,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112741685}
-  - component: {fileID: 2112741686}
   - component: {fileID: 2112741687}
   - component: {fileID: 2112741688}
   - component: {fileID: 2112741689}
   - component: {fileID: 2112741690}
   - component: {fileID: 2112741691}
   - component: {fileID: 2112741692}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StatisticsHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -921,40 +942,6 @@ Transform:
   m_Father: {fileID: 706356616}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2112741686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112741683}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d90922384d04e42be75781654aebea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blibN: 0
-  blobN: 0
-  blubN: 0
-  blobs: []
-  blibs: []
-  blubs: []
-  time: 0
-  totalTime: 0
-  sampleSize: 0
-  totAge_blib: 0
-  thisAge_blib: 0
-  avgAge_blib: 0
-  avgAge_blob: 0
-  avgAge_blub: 0
-  totAge_blob: 0
-  thisAge_blob: 0
-  totAge_blub: 0
-  thisAge_blub: 0
-  sampler: 0
-  sampledBlib: {fileID: 0}
-  sampledBlob: {fileID: 0}
-  sampledBlub: {fileID: 0}
 --- !u!114 &2112741687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,7 +949,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112741683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be89d3cbb9fb24ee380e57ee3cd34eab, type: 3}
   m_Name: 
@@ -982,7 +969,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112741683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 832c1004ad63f43e09eca36c265cbe5b, type: 3}
   m_Name: 
@@ -1003,8 +990,10 @@ MonoBehaviour:
   blueAllele1: []
   blueAllele2: []
   LifeSpan: []
-  turnDice: 
-  turnTorque: []
+  turnDice: []
+  turnTorqueAllele1: []
+  turnTorqueAllele2: []
+  lookDistance: []
 --- !u!114 &2112741689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1001,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112741683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5de411488364a44adb8613d52a5fb0aa, type: 3}
   m_Name: 
@@ -1034,9 +1023,11 @@ MonoBehaviour:
   blueAllele2: []
   LifeSpan: []
   lookDistance: []
-  turnTorque: []
-  turnDice: 
+  turnTorqueAllele1: []
+  turnTorqueAllele2: []
+  turnDice: []
   energyToReproduce: []
+  conjAge: []
 --- !u!114 &2112741690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,7 +1035,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112741683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daf9a9d19b7b743cca205737cf38c0c4, type: 3}
   m_Name: 
@@ -1066,9 +1057,11 @@ MonoBehaviour:
   blueAllele2: []
   LifeSpan: []
   lookDistance: []
-  turnTorque: []
-  turnDice: 
+  turnTorqueAllele1: []
+  turnTorqueAllele2: []
+  turnDice: []
   energyToReproduce: []
+  conjAge: []
 --- !u!114 &2112741691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,7 +1069,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112741683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06cb32b533397432d9858c9a9beb5ace, type: 3}
   m_Name: 
@@ -1098,9 +1091,11 @@ MonoBehaviour:
   blueAllele2: []
   LifeSpan: []
   lookDistance: []
-  turnTorque: []
-  turnDice: 
+  turnTorqueAllele1: []
+  turnTorqueAllele2: []
+  turnDice: []
   energyToReproduce: []
+  conjAge: []
 --- !u!114 &2112741692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,3 +1114,4 @@ MonoBehaviour:
   rand2: 
   rand3: 
   rand4: 
+  randSeries: 

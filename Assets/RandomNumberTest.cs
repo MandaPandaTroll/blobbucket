@@ -20,59 +20,73 @@ private List<string[]> rowData = new List<string[]>();
 
     
     float time;
-    float totalTime;
+
 
    public int sampleSize;
     public float sampleRate;
     
    
 
-    int sampler;
+
 
     public List <int> rand1;
     public List <int> rand2;
 
     public List <int> rand3;
     public List <int> rand4;
+    public List <int> randSeries;
+    System.Random rnd = new System.Random();
+    
+    int seriesIndex = 0;
+    int iter;
     
  
-    
-    
- 
-    BlibControls sampledBlib;
 
     // Start is called before the first frame update
     void Start()
     {
-    
-        sampleSize = 10;
-        sampleRate = 10f;
+
+        sampleSize = 1;
+        sampleRate = 0.1f;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
         
+        
+        do{
+            randSeries.Add(rnd.Next(0,128));
+        
+        iter += 1;
+        }while(iter < 10000);
         
         time += Time.deltaTime;
         
             if (time >= sampleRate){
-               System.Random rnd = new System.Random();
+               
                 
 
 
 
                 
                     
-                for (int i = 0; i < sampleSize; i++)
-                {   
-                rand1.Add(rnd.Next(-1,2));
-                rand2.Add(rnd.Next(-1,2));
-                rand3.Add(rnd.Next(-1,2));
-                rand4.Add(rnd.Next(-1,2));
+                
+                rand1.Add(randSeries[seriesIndex]);
+                seriesIndex += 1;  
+                rand2.Add(randSeries[seriesIndex]);
+                seriesIndex += 1;  
+                rand3.Add(randSeries[seriesIndex]);
+                seriesIndex += 1;  
+                rand4.Add(randSeries[seriesIndex]);
+                seriesIndex += 1;  
+                
+
+
                         
-                }
+                
             
              
 
@@ -95,29 +109,19 @@ private List<string[]> rowData = new List<string[]>();
     }
         void Save(){
            
-            string[] rowDataTemp;
 
         
-        // Creating First row of titles manually..
-
-
-            
+             string[] rowDataTemp = new string[4];
             
 
+            rowDataTemp[0] = rand1[0].ToString();
+            rowDataTemp[1] = rand2[0].ToString();
+            rowDataTemp[2] = rand3[0].ToString();
+            rowDataTemp[3] = rand4[0].ToString();
 
-            
-
-
-        // You can add up the values in as many cells as you want.
-        
-            rowDataTemp = new string[4];
-            for(int i = 0; i< sampleSize; i++){
-            rowDataTemp[0] = rand1[i].ToString();
-            rowDataTemp[1] = rand2[i].ToString();
-            rowDataTemp[2] = rand3[i].ToString();
-            rowDataTemp[3] = rand4[i].ToString();
             rowData.Add(rowDataTemp);
-            }
+            
+            
             
 
             
@@ -154,6 +158,7 @@ private List<string[]> rowData = new List<string[]>();
         rand2.Clear();
         rand3.Clear();
         rand4.Clear();
+
 
         time = 0f;
 

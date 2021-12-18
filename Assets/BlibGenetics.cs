@@ -44,8 +44,11 @@ private List<string[]> rowData = new List<string[]>();
     public List <float> blueAllele2;
     public List <float> LifeSpan;
 
-    public List <int> turnDice;
-    public List <float> turnTorque;
+    public List <float> turnDice;
+    public List <float> turnTorqueAllele1;
+    public List <float> turnTorqueAllele2;
+    public List <float> lookDistance;
+    
  
     
     
@@ -100,8 +103,10 @@ private List<string[]> rowData = new List<string[]>();
                     blueAllele2.Add(sampledBlib.blueAllele2*10f);
                     LifeSpan.Add(sampledBlib.lifeLength);
                     turnDice.Add(sampledBlib.turnDice);
-                    turnTorque.Add(sampledBlib.turnTorque);
+                    turnTorqueAllele1.Add(sampledBlib.turnTorqueAllele1);
+                    turnTorqueAllele2.Add(sampledBlib.turnTorqueAllele2);
                     generation.Add(sampledBlib.generation);
+                    lookDistance.Add(sampledBlib.lookDistance);
                 }           
                 
             
@@ -129,7 +134,7 @@ private List<string[]> rowData = new List<string[]>();
             itCount += 1;
             string[] rowDataTemp;
         if (itCount == 1){
-            rowDataTemp = new string[16];
+            rowDataTemp = new string[18];
             rowDataTemp[0] ="Generation";
             rowDataTemp[1] = "intron1";
             rowDataTemp[2] = "intron2";
@@ -145,7 +150,9 @@ private List<string[]> rowData = new List<string[]>();
             rowDataTemp[12] = "blueAllele2";
             rowDataTemp[13] = "MaxlifeLength";
             rowDataTemp[14] = "turnDice";
-            rowDataTemp[15] = "turnTorque";
+            rowDataTemp[15] = "turnTorqueAllele1";
+            rowDataTemp[16] = "turnTorqueAllele2";
+            rowDataTemp[17] = "lookDistance";
             rowData.Add(rowDataTemp);
         }
         // Creating First row of titles manually..
@@ -162,7 +169,7 @@ private List<string[]> rowData = new List<string[]>();
 
         // You can add up the values in as many cells as you want.
         for(int i = 0; i < sampleSize; i++){
-            rowDataTemp = new string[16];
+            rowDataTemp = new string[18];
             rowDataTemp[0] = generation[i].ToString();
             rowDataTemp[1] = intron1[i].ToString();
             rowDataTemp[2] = intron2[i].ToString();
@@ -178,7 +185,9 @@ private List<string[]> rowData = new List<string[]>();
             rowDataTemp[12] = blueAllele2[i].ToString();
             rowDataTemp[13] = LifeSpan[i].ToString();
             rowDataTemp[14] = turnDice[i].ToString();
-            rowDataTemp[15] = turnTorque[i].ToString();
+            rowDataTemp[15] = turnTorqueAllele1[i].ToString();
+            rowDataTemp[16] = turnTorqueAllele2[i].ToString();
+            rowDataTemp[17] = lookDistance[i].ToString();
 
             
 
@@ -224,9 +233,11 @@ private List<string[]> rowData = new List<string[]>();
         blueAllele1.Clear();
         blueAllele2.Clear();
         LifeSpan.Clear();
-        turnTorque.Clear();
+        turnTorqueAllele1.Clear();
+        turnTorqueAllele2.Clear();
         turnDice.Clear();
         generation.Clear();
+        lookDistance.Clear();
 
 
         Array.Clear(blibs,0,blibs.Length);
